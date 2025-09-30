@@ -25,23 +25,16 @@ export default function Productc({ product, cart, setCart }) {
                 onError={(e) => (e.target.src = "/images/placeholder.jpg")}
             />
             <h3 className="font-semibold text-lg truncate">{product.name}</h3>
-
-            {/* Brand + Category together */}
-            <p className="text-gray-500">
-                {product.brand} • {product.category}
-            </p>
-
+            <p className="text-gray-500">{product.brand}</p>
             <p className="font-bold mt-1">₨ {product.price}</p>
             <p className="text-yellow-500">{`⭐ ${product.rating}`}</p>
-
             <button
                 disabled={!product.inStock}
                 onClick={addToCart}
-                className={`mt-auto py-2 px-4 rounded ${
-                    product.inStock
+                className={`mt-auto py-2 px-4 rounded ${product.inStock
                         ? "bg-blue-500 text-white hover:bg-blue-600"
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                }`}
+                    }`}
             >
                 {product.inStock ? "Add to Cart" : "Out of Stock"}
             </button>
