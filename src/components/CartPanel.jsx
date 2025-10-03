@@ -83,7 +83,7 @@ export default function CartPanel({ cart, setCart, open, onClose }) {
                         >
                             Pay with Stripe
                         </button>
-                        <button onClick={emptyCart} className="w-full bg-red-500 hover:bg-red-600 cursor-not-allowed">
+                        <button onClick={emptyCart} className="w-full bg-red-500 hover:bg-red-600 cursor-pointer">
                             Empty Cart
                         </button>
                     </div>
