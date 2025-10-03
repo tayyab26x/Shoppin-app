@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Productc from "../components/Productc.jsx";
 import ProductSkeleton from "../Components/LoadingSkeleton.jsx";
 import Navbar from "../components/NavBar.jsx";
-import CartPanel from "../components/CartPanel.jsx";
+import CartPanel from "../Components/CartPanel.jsx";
 import productsData from "../data/Products.js";
 import Pagination from "../components/Pagination.jsx";
 
