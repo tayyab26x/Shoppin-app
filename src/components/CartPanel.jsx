@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import StripeCheckout from "./StripeCheckout";
 
 export default function CartPanel({ cart, setCart, open, onClose }) {
+    const [showCheckout, setShowCheckout] = useState(false);
+    
     if (!open) return null;
 
     const updateCart = (newCart) => {
@@ -33,6 +36,22 @@ export default function CartPanel({ cart, setCart, open, onClose }) {
 
     const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
+    const handleCheckoutClose = () => {
+        setShowCheckout(false);
+        setCart([]); // Clear cart after successful checkout
+        localStorage.setItem("cart", JSON.stringify([]));
+    };
+
+    if (showCheckout) {
+        return (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="relative">
+                    <StripeCheckout cart={cart} onClose={handleCheckoutClose} />
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="fixed top-0 right-0 h-full w-80 bg-white shadow-lg p-4 z-50 overflow-y-auto">
             <button className="text-red-500 mb-4" onClick={onClose}>Close ✕</button>
@@ -56,9 +75,18 @@ export default function CartPanel({ cart, setCart, open, onClose }) {
                         ))}
                     </ul>
                     <p className="font-bold mt-4">Total: ₨ {total}</p>
-                    <button onClick={emptyCart} className="mt-2 bg-red-500 text-white px-4 py-2 rounded">
-                        Empty Cart
-                    </button>
+                    
+                    <div className="space-y-2 mt-4">
+                        <button
+                            onClick={() => setShowCheckout(true)}
+                            className="w-full bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded font-semibold transition-colors"
+                        >
+                            Pay with Stripe
+                        </button>
+                        <button onClick={emptyCart} className="w-full bg-red-500 hover:bg-red-600 cursor-not-allowed">
+                            Empty Cart
+                        </button>
+                    </div>
                 </>
             )}
         </div>
